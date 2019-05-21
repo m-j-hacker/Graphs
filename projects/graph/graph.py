@@ -41,7 +41,8 @@ class Graph:
             vert = s.pop()
             # If not in visited, mark it as visited
             if vert not in visited:
-                visited.add(vert)
+                # TODO - finish add_vertex def!
+                # visited.add(vert)
                 # And then add all neighbors to stack
                 for next_vert in self.vertices[vert]:
                     s.push(next_vert)
