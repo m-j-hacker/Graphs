@@ -11,6 +11,7 @@ class Graph:
         """
         Add a vertex to the graph.
         """
+        
         pass  # TODO
     def add_edge(self, v1, v2):
         """
@@ -28,7 +29,22 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # First we will take the starting vertex and push it
+        # Into a newly made instance of Stack
+        s = Stack()
+        s.push(starting_vertex)
+        # We need to store the visited points
+        visited = set()
+        # A loop needs to run as long as the stack isn't empty
+        while s.size() > 0:
+            #Pop out first vertex
+            vert = s.pop()
+            # If not in visited, mark it as visited
+            if vert not in visited:
+                visited.add(vert)
+                # And then add all neighbors to stack
+                for next_vert in self.vertices[vert]:
+                    s.push(next_vert)
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
