@@ -1,4 +1,18 @@
-
+# Import random
+import random
+# We need a queue class
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 
 class User:
     def __init__(self, name):
@@ -47,8 +61,20 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-
+        # First, we will run a loop to generate all users
+        for i in range(0, numUsers):
+            self.addUser(f'User {i}')
         # Create friendships
+        # Now, we will generate possible friendships
+        possibleFriendships = []
+        for userID in self.users:
+            for friendID in range(userID + 1, self.lastID + 1):
+                possibleFriendships.append((userID, friendID))
+        # Shuffle the friendships
+        random.shuffle(possibleFriendships)
+        for i in range(0, (numUsers * avgFriendships // 2)):
+            friendship = possibleFriendships[i]
+            self.addFriendship(friendship[0], friendship[1])
 
     def getAllSocialPaths(self, userID):
         """
@@ -61,6 +87,19 @@ class SocialGraph:
         """
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+        # We will use a BFS to find the shortest friendship path
+        # between users
+        q = Queue()
+        q.enqueue([userID])
+        while q.size() > 0:
+            path = q.dequeue()
+            v = path[-1]
+            if v not in visited:
+                visited[v] = path
+                for friend in self.friendships[v]:
+                    path_copy = path.copy()
+                    path_copy.append(friend)
+                    q.enqueue(path_copy)
         return visited
 
 
