@@ -36,8 +36,10 @@ class Graph:
         while q:
             vertex = q.pop(0)
             if vertex not in visisted:
+                print(vertex)
                 visisted.add(vertex)
                 q.extend(self.vertices[vertex] - visited)
+        return visisted
 
     def dft(self, starting_vertex):
         """
